@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Link } from 'expo-router';
 
-const LOGIN_URL = 'https://your-api.com/api/login';
+const LOGIN_URL = 'http://localhost:8000/api/login';
 
-export function LoginScreen() {
+export default function LoginScreen() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -18,7 +19,6 @@ export function LoginScreen() {
       const data = await res.json();
       if (res.ok && data.token) {
         await AsyncStorage.setItem('userToken', data.token);
-        // navigation.replace('Home');
       } else {
         Alert.alert('Error', data.message || 'Login failed');
       }
@@ -51,10 +51,11 @@ export function LoginScreen() {
       <TouchableOpacity style={styles.button} onPress={handleLogin}>
         <Text style={styles.buttonText}>Log In</Text>
       </TouchableOpacity>
-      <TouchableOpacity 
-      onPress={() => navigation.navigate('Signup')}>
-        <Text style={styles.switchText}>Don`t have an account? Sign Up</Text>
-      </TouchableOpacity>
+      <Link href="/auth/signup" asChild>
+        <TouchableOpacity>
+          <Text style={styles.switchText}>Don&apos;t have an account? Sign Up</Text>
+        </TouchableOpacity>
+      </Link>
     </View>
   );
 }

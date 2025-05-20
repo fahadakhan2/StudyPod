@@ -1,16 +1,13 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useNavigation } from 'expo-router';
-
+import { Link } from 'expo-router';
 // Replace these with your actual API endpoints
-const SIGNUP_URL = 'https://your-api.com/api/signup';
+const SIGNUP_URL = 'http://localhost:8000/api/signup';
 
-export function SignupScreen({}) {
+export default function SignupScreen() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const navigation = useNavigation();
   const handleSignup = async () => {
     try {
       const res = await fetch(SIGNUP_URL, {
@@ -21,7 +18,6 @@ export function SignupScreen({}) {
       const data = await res.json();
       if (res.ok) {
         Alert.alert('Success', 'Account created! Please log in.');
-        // navigation.navigate('/login');
       } else {
         Alert.alert('Error', data.message || 'Signup failed');
       }
@@ -61,9 +57,11 @@ export function SignupScreen({}) {
       <TouchableOpacity style={styles.button} onPress={handleSignup}>
         <Text style={styles.buttonText}>Create Account</Text>
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.navigate('/login')}>
-        <Text style={styles.switchText}>Already have an account? Log In</Text>
-      </TouchableOpacity>
+      <Link href="/auth/login" asChild>
+        <TouchableOpacity>
+          <Text style={styles.switchText}>Already have an account? Log In</Text>
+        </TouchableOpacity>
+      </Link>
     </View>
   );
 }
