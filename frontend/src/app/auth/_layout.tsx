@@ -1,18 +1,10 @@
 import React from 'react';
-import { Stack } from 'expo-router';
+import { Slot } from 'expo-router';
 
-interface AuthLayoutProps {
-    children: React.ReactNode;
-}
-
-const AuthLayout: React.FC<AuthLayoutProps> = ({ children }) => {
+const AuthLayout = () => {
     return (
-        <Stack>
-            {children}
-        </Stack>    
+        <Slot />    
     );
 };
-
-
 
 export default AuthLayout;

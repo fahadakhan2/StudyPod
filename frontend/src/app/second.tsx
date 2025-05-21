@@ -1,29 +1,15 @@
-import "@/global.css"
-
-import { Link, useRouter } from "expo-router";
+import { Link } from "expo-router";
 import { StyleSheet, Text, View } from "react-native";
-import { Button } from "../components/Button";
 
-export default function Page() {
-
-  const router = useRouter();
-
+export default function SecondPage() {
   return (
-
     <View style={styles.container}>
       <View style={styles.main}>
-        <Text style={styles.title}>Hello World</Text>
+        <Text style={styles.title}>2nd Screen</Text>
         <Text style={styles.subtitle}>This is the first page of your app.</Text>
-        <Link href={"/auth/login"}>Link to LogIn</Link>
-        <Link href = {"/second"} push asChild>
-        <Button title ="push to Second"></Button>
-        </Link>
-        <Link href = {"/third"} push asChild>
-        <Button title ="push to Third"></Button>
-        </Link>
+        <Link href={"/third"}>Push to Third</Link>
       </View>
     </View>
-
   );
 }
 
