@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from "react-native";
 
 export default function SecondPage() {
   return (
-    <View style={styles.container}>
+    <View style = {styles.container}>
       <View style={styles.main}>
         <Text style={styles.title}>2nd Screen</Text>
         <Text style={styles.subtitle}>This is the first page of your app.</Text>
@@ -18,6 +18,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     padding: 24,
+    backgroundColor: "violet"
   },
   main: {
     flex: 1,
