@@ -18,9 +18,6 @@ export default function Page() {
         <Link href = {"/second"} push asChild>
         <Button title ="push to Second"></Button>
         </Link>
-        <Link href = {"/third"} push asChild>
-        <Button title ="push to Third"></Button>
-        </Link>
       </View>
     </View>
 
