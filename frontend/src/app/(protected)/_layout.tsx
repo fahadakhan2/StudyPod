@@ -20,6 +20,7 @@ export default function TabsLayout () {
         <Tabs.Screen name="frontend_audio" options={{headerShown: false}}/>
         <Tabs.Screen name="localtts" options={{headerShown: false}}/>
         <Tabs.Screen name="settings" options={{headerShown: false}}/>
+        <Tabs.Screen name="index" options={{headerShown: false}}/>
     </Tabs>
   );
 }
