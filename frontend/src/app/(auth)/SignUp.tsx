@@ -85,7 +85,8 @@ export default function SignUp() {
             
             // Navigate to the main app or onboarding
             authContext.logIn(); // Update auth context state
-            router.replace('/');
+            // TODO: Navigate to info page to get user interests. 
+            router.replace('/info');
         } catch (error: any) {
             const errorCode = error.code;
             const errorMessage = error.message;

@@ -17,18 +17,18 @@ router.get('/', async (req: Request, res: Response): Promise<void> => {
 
 
 router.post('/', async (req: Request, res: Response): Promise<void> => {
-  const {email, password} = req.body;
+  const {email} = req.body;
 
-  if (!email || !password) {
-    res.status(400).json({ error: 'Email and password are Required' });
+  if (!email) {
+    res.status(400).json({ error: 'Email is Required' });
     return;
   }
 
   try {
     const newUser = await prisma.user.create({
       data: {
-        email,
-        password
+        email: email,
+        password: "placeholder",
       },
     });
 

@@ -7,6 +7,8 @@ import podcastAudioRoutes from './routes/podcastAudioRoutes';
 import ttsRoutes from './routes/TTSRoute'; 
 import TTSandGemeniCombined from './routes/TTSandGemeniCombined';
 import audioStorageRoutes from './routes/audioStorageRoutes';
+import interestsRouter from './routes/interests';
+import podcastsRouter from './routes/podcasts';
 
 dotenv.config();
 
@@ -22,6 +24,8 @@ app.use('/podcast-audio', podcastAudioRoutes);
 app.use('/tts-server', ttsRoutes);
 app.use('/tts-gemini', TTSandGemeniCombined);
 app.use('/audio-storage', audioStorageRoutes);
+app.use('/api', interestsRouter);
+app.use('/api', podcastsRouter);
 
 // Root test route
 app.get('/', (req: Request, res: Response) => {

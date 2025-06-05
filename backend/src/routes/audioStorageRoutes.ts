@@ -22,6 +22,11 @@ router.post('/upload', async (req, res) => {
         originalName: 'example.mp3',
         contentType: 'audio/mpeg',
         url,
+        user: {
+          connect: {
+            id: '1'
+          }
+        }
       }
     });
 
