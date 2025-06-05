@@ -23,9 +23,34 @@ if (!USER_ID || !API_KEY || !VOICE) {
 // Base folder where we’ll save the MP3 files
 const OUTPUT_DIR = path.join(__dirname, '../../generated_audio');
 
+// Base folder where we’ll write log entries
+const LOG_DIR = path.join(__dirname, '../../logs');
+const LOG_FILE = path.join(LOG_DIR, 'tts.log');
+
 router.post('/', async (req: Request, res: Response): Promise<void> => {
   try {
     const { text, filename } = req.body;
+
+    // --- Logging logic ---
+    // Ensure the "logs" directory exists
+    if (!fs.existsSync(LOG_DIR)) {
+      fs.mkdirSync(LOG_DIR, { recursive: true });
+    }
+
+    // Create a timestamped log entry
+    const timestamp = new Date().toISOString();
+    const safeFilename = filename ? filename.replace(/[^a-zA-Z0-9_\-]/g, '_') : 'N/A';
+    const snippet = typeof text === 'string' ? text.slice(0, 50).replace(/\s+/g, ' ') : '';
+    const logEntry = `${timestamp} - TTS request received. Text snippet: "${snippet}..." | Filename: ${safeFilename}\n`;
+
+    // Append the log entry (non-blocking)
+    fs.appendFile(LOG_FILE, logEntry, (err) => {
+      if (err) {
+        console.error('Logging error:', err);
+      }
+    });
+    // --- End logging logic ---
+
     if (!text) {
       res.status(400).json({ error: 'Missing text in request body' });
       return;
@@ -80,7 +105,6 @@ router.post('/', async (req: Request, res: Response): Promise<void> => {
 
     // Once writing is finished, let the client know where it landed
     fileStream.on('finish', () => {
-      // You could also stream back the file, but here we simply inform the caller
       res.json({
         message: 'TTS audio saved successfully',
         file: safeName,
